@@ -1,10 +1,10 @@
-# CoachFlow - Executive & Engineering Leadership Coaching
+# ClearFlow Coaching - Executive & Engineering Leadership Coaching
 
 > Profesjonalny coaching dla liderów, Engineering Managerów i menedżerów technologicznych oparty na metodzie sokratejskiej, stoickim rygorze i analizie przekonań.
 
 ## O Ekspercie i Praktyce
 - **Lokalizacja**: Warszawa i okolice oraz Sesje Online (cały świat).
-- **Tło zawodowe**: Wieloletnie doświadczenie w rolach Engineering Managera i Agile Leadera w branży technologicznej.
+- **Tło zawodowe**: Doświadczenie w rolach Engineering Managera i Agile Leadera w branży technologicznej.
 - **Metodyka**: Łączenie inżynieryjnego podejścia (rozkładanie problemów na czynniki pierwsze) z pytaniami sokratejskimi (obnażanie ukrytych założeń) i stoickim rygorem (kategoryczne oddzielenie sfery wpływu od akceptacji).
 - **Akredytacja i Standardy**: Ścieżka akredytacji International Coaching Federation (ICF), warsztat CoachWise, certyfikowane talenty CliftonStrengths (Gallup).
 
@@ -20,6 +20,6 @@
    - **Stacjonarnie (F2F)**: Spotkania w miejscu odpowiadającym potrzebom coachee (biuro klienta, kawiarnia, dom/mieszkanie, lub sesja w ruchu podczas spaceru w Warszawie i okolicach).
 
 ## Kontakt i Rezerwacja
-- **Strona www**: https://coachflow.pl
-- **Email**: kontakt@coachflow.pl
+- **Strona www**: https://clearflow.pl
+- **Email**: kontakt@clearflow.pl
 - **Sesja wstępna**: Bezpłatna, 30-minutowa sesja kalibracyjna ustalana w ciągu 24h od zgłoszenia.

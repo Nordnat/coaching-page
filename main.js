@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MAIN JAVASCRIPT LOGIC - CoachFlow Executive Coaching
+   MAIN JAVASCRIPT LOGIC - ClearFlow Coaching Executive Coaching
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = document.getElementById('submitInquiryBtn');
       const name = document.getElementById('userName').value.trim();
       const email = document.getElementById('userEmail').value.trim();
+      const coachingType = document.getElementById('coachingType').value;
       const format = document.getElementById('sessionType').value;
       const message = document.getElementById('userNote').value.trim();
       const rodo = document.getElementById('rodoConsent').checked;
@@ -137,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const formData = new FormData();
       formData.append('name', name);
       formData.append('email', email);
+      formData.append('coaching_type', coachingType);
       formData.append('format', format);
       formData.append('message', message);
       formData.append('rodo_consent', 'Zgoda RODO udzielona');
@@ -164,11 +166,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Fallback & Guarantee: Trigger Mailto to ensure email reaches recipient directly
       if (!isSuccess) {
-        const mailtoSubject = encodeURIComponent(`Zgłoszenie na sesję wstępną - ${name}`);
+        const mailtoSubject = encodeURIComponent(`Zgłoszenie na sesję kalibracyjną - ${name}`);
         const mailtoBody = encodeURIComponent(
-          `Nowe zgłoszenie ze strony CoachFlow:\n\n` +
+          `Nowe zgłoszenie ze strony ClearFlow Coaching:\n\n` +
           `Imię i Nazwisko: ${name}\n` +
           `E-mail: ${email}\n` +
+          `Typ współpracy: ${coachingType}\n` +
           `Preferowany format spotkania: ${format}\n` +
           `Wyzwanie / Opis: ${message || 'Brak dodatkowego opisu'}\n` +
           `Zgoda RODO: Tak\n\n` +
@@ -176,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         // Trigger mailto link silently in background
-        const mailtoUrl = `mailto:kontakt@coachflow.pl?subject=${mailtoSubject}&body=${mailtoBody}`;
+        const mailtoUrl = `mailto:kontakt@clearflow.pl?subject=${mailtoSubject}&body=${mailtoBody}`;
         window.location.href = mailtoUrl;
       }
 
@@ -196,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ${email}
             </div>
             <div style="font-size: 0.9rem; color: var(--color-text-light); margin-bottom: 1.8rem;">
-              Format: <strong>${format}</strong>
+              Typ: <strong>${coachingType}</strong> | Format: <strong>${format}</strong>
             </div>
             <button class="btn btn-accent" id="successCloseBtn" style="width: 100%;">Zamknij okno</button>
           </div>

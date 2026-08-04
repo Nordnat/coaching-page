@@ -1,4 +1,4 @@
-# robots.txt for CoachFlow (Leadership Coaching)
+# robots.txt for ClearFlow Coaching (Leadership Coaching)
 User-agent: *
 Allow: /
 
@@ -22,5 +22,5 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap & LLM Context References
-Sitemap: https://coachflow.pl/sitemap.xml
-# LLMs context file: https://coachflow.pl/llms.txt
+Sitemap: https://clearflow.pl/sitemap.xml
+# LLMs context file: https://clearflow.pl/llms.txt
