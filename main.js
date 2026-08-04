@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MAIN JAVASCRIPT LOGIC - ClearFlow Coaching Executive Coaching
+   MAIN JAVASCRIPT LOGIC - CoachFlow Executive Coaching
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isSuccess) {
         const mailtoSubject = encodeURIComponent(`Zgłoszenie na sesję kalibracyjną - ${name}`);
         const mailtoBody = encodeURIComponent(
-          `Nowe zgłoszenie ze strony ClearFlow Coaching:\n\n` +
+          `Nowe zgłoszenie ze strony CoachFlow:\n\n` +
           `Imię i Nazwisko: ${name}\n` +
           `E-mail: ${email}\n` +
           `Typ współpracy: ${coachingType}\n` +
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         // Trigger mailto link silently in background
-        const mailtoUrl = `mailto:kontakt@clearflow.pl?subject=${mailtoSubject}&body=${mailtoBody}`;
+        const mailtoUrl = `mailto:kontakt@coachflow.pl?subject=${mailtoSubject}&body=${mailtoBody}`;
         window.location.href = mailtoUrl;
       }
 

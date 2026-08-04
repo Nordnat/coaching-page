@@ -1,4 +1,4 @@
-# ClearFlow Coaching - Executive & Engineering Leadership Coaching
+# CoachFlow - Executive & Engineering Leadership Coaching
 
 > Profesjonalny coaching dla liderów, Engineering Managerów i menedżerów technologicznych oparty na metodzie sokratejskiej, stoickim rygorze i analizie przekonań.
 
@@ -20,6 +20,6 @@
    - **Stacjonarnie (F2F)**: Spotkania w miejscu odpowiadającym potrzebom coachee (biuro klienta, kawiarnia, dom/mieszkanie, lub sesja w ruchu podczas spaceru w Warszawie i okolicach).
 
 ## Kontakt i Rezerwacja
-- **Strona www**: https://clearflow.pl
-- **Email**: kontakt@clearflow.pl
+- **Strona www**: https://coachflow.pl
+- **Email**: kontakt@coachflow.pl
 - **Sesja wstępna**: Bezpłatna, 30-minutowa sesja kalibracyjna ustalana w ciągu 24h od zgłoszenia.
