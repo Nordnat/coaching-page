@@ -377,7 +377,11 @@
       <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-navy-dark);">Zgłoś się na sesję kalibracyjną</h3>
       <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Wypełnij krótki formularz, aby zaaplikować o proces Pro Bono lub umówić standardową współpracę. Skontaktuję się w ciągu 24h, aby ustalić dogodny termin.</p>
 
-      <form id="inquiryForm" action="https://formspree.io/f/xvovbzpz" method="POST">
+      <form id="inquiryForm" action="https://formsubmit.co/kontakt@coachflow.com.pl" method="POST">
+        <input type="hidden" name="_subject" value="Zgłoszenie na sesję kalibracyjną - CoachFlow">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+
         <div class="form-group">
           <label class="form-label" for="userName">Imię i Nazwisko *</label>
           <input type="text" id="userName" name="name" class="form-input" placeholder="np. Jan Kowalski" required>
