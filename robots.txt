@@ -1,0 +1,26 @@
+# robots.txt for CoachFlow (Leadership Coaching)
+User-agent: *
+Allow: /
+
+# AI Crawlers & LLM Indexing Directive (GEO - Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap & LLM Context References
+Sitemap: https://coachflow.pl/sitemap.xml
+# LLMs context file: https://coachflow.pl/llms.txt
