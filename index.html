@@ -77,7 +77,7 @@
         <li><a href="#about" class="nav-link">O mnie</a></li>
         <li><a href="#principles" class="nav-link">Zasady pracy</a></li>
         <li><a href="#formats" class="nav-link">Formaty spotkań</a></li>
-        <li><a href="#icf-offer" class="nav-link">Oferta ICF</a></li>
+        <li><a href="#icf-offer" class="nav-link">Proces Pro Bono</a></li>
         <li class="nav-cta">
           <a href="#contact" class="btn btn-accent btn-sm open-modal-btn">Umów sesję</a>
         </li>
@@ -235,15 +235,15 @@
         <!-- Oferta Certyfikacyjna ICF -->
         <div class="certification-card" id="icf-offer">
           <div>
-            <span class="certification-badge">Oferta Specjalna</span>
-            <h3 class="certification-h3">Ścieżka Akredytacji ICF</h3>
+            <span class="certification-badge">Limitowany Nabór</span>
+            <h3 class="certification-h3">Ekskluzywny Proces Pro Bono (ICF)</h3>
             <p class="certification-desc">
-              W związku z oficjalną ścieżką do międzynarodowej akredytacji ICF, oferuję pakiety sesji (4-6 spotkań) w specjalnych warunkach cenowych, w zamian za zaufanie i możliwość wypracowania godzin praktyki.
+              W ramach ścieżki do międzynarodowej akredytacji ICF, otwieram wąski nabór na pełne procesy coachingowe (3-4 sesje) w modelu Pro Bono. Walutą w tej współpracy nie są pieniądze, lecz Twoje zaangażowanie w proces, zgoda na oficjalny wpis do mojego logu godzinowego oraz pisemna, merytoryczna referencja na LinkedIn po jego zakończeniu.
             </p>
           </div>
           <div class="certification-action">
             <button class="btn btn-accent open-modal-btn" style="width: 100%;">
-              Aplikuj do pakietu ICF
+              Aplikuj o proces Pro Bono
             </button>
           </div>
         </div>
@@ -274,8 +274,8 @@
     <div class="modal-content">
       <button class="modal-close" id="modalClose" aria-label="Zamknij">&times;</button>
       <span class="badge badge-orange">Sesja Wstępna</span>
-      <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-navy-dark);">Umów sesję wstępną</h3>
-      <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Wypełnij krótki formularz. Skontaktuję się w ciągu 24h, aby ustalić dogodny termin.</p>
+      <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-navy-dark);">Zgłoś się na sesję kalibracyjną</h3>
+      <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Wypełnij krótki formularz, aby zaaplikować o proces Pro Bono lub umówić standardową współpracę. Skontaktuję się w ciągu 24h, aby ustalić dogodny termin.</p>
 
       <form id="inquiryForm" action="https://formspree.io/f/xvovbzpz" method="POST">
         <div class="form-group">
@@ -286,6 +286,15 @@
           <label class="form-label" for="userEmail">Adres E-mail *</label>
           <input type="email" id="userEmail" name="email" class="form-input" placeholder="jan@firma.pl" required>
         </div>
+
+        <div class="form-group">
+          <label class="form-label" for="coachingType">Typ Współpracy *</label>
+          <select id="coachingType" name="coaching_type" class="form-select" required>
+            <option value="Aplikacja - Proces Pro Bono (ICF)">Aplikacja: Proces Pro Bono (wymiana za referencję)</option>
+            <option value="Współpraca standardowa">Współpraca standardowa (płatna)</option>
+          </select>
+        </div>
+
         <div class="form-group">
           <label class="form-label" for="sessionType">Preferowany Format Spotkania *</label>
           <select id="sessionType" name="format" class="form-select" required>
@@ -322,7 +331,7 @@
       <div style="font-size: 0.92rem; color: var(--color-text-muted); line-height: 1.6;">
         <p>1. Administrator danych: Administratorem Twoich danych osobowych przekazywanych w formularzu kontaktowym jest CoachFlow (Executive Leadership Coaching).</p>
         <p>2. Cel przetwarzania: Dane (imię, e-mail, treść wiadomości, preferowany format sesji) przetwarzane są wyłącznie w celu udzielenia odpowiedzi na zapytanie i umówienia bezpłatnej 30-minutowej sesji wstępnej.</p>
-        <p>3. Prawa użytkownika: Masz prawo do dostępu to swoich danych, sprostowania, usunięcia lub ograniczenia przetwarzania. Dane nie są przekazywane podmiotom trzecim w celach marketingowych.</p>
+        <p>3. Prawa użytkownika: Masz prawo do dostępu do swoich danych, sprostowania, usunięcia lub ograniczenia przetwarzania. Dane nie są przekazywane podmiotom trzecim w celach marketingowych.</p>
       </div>
       <button class="btn btn-outline" id="privacyAcceptBtn" style="margin-top: 1.5rem; width: 100%;">Zamknij i powróć</button>
     </div>
@@ -346,7 +355,7 @@
             <li><a href="#about">O mnie</a></li>
             <li><a href="#principles">Zasady pracy</a></li>
             <li><a href="#formats">Formaty spotkań</a></li>
-            <li><a href="#icf-offer">Oferta ICF</a></li>
+            <li><a href="#icf-offer">Proces Pro Bono</a></li>
           </ul>
         </div>
         <div>
