@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         // Trigger mailto link silently in background
-        const mailtoUrl = `mailto:kontakt@coachflow.pl?subject=${mailtoSubject}&body=${mailtoBody}`;
+        const mailtoUrl = `mailto:kontakt@coachflow.com.pl?subject=${mailtoSubject}&body=${mailtoBody}`;
         window.location.href = mailtoUrl;
       }
 

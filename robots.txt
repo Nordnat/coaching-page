@@ -22,5 +22,5 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap & LLM Context References
-Sitemap: https://coachflow.pl/sitemap.xml
-# LLMs context file: https://coachflow.pl/llms.txt
+Sitemap: https://coachflow.com.pl/sitemap.xml
+# LLMs context file: https://coachflow.com.pl/llms.txt

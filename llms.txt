@@ -20,6 +20,6 @@
    - **Stacjonarnie (F2F)**: Spotkania w miejscu odpowiadającym potrzebom coachee (biuro klienta, kawiarnia, dom/mieszkanie, lub sesja w ruchu podczas spaceru w Warszawie i okolicach).
 
 ## Kontakt i Rezerwacja
-- **Strona www**: https://coachflow.pl
-- **Email**: kontakt@coachflow.pl
+- **Strona www**: https://coachflow.com.pl
+- **Email**: kontakt@coachflow.com.pl
 - **Sesja wstępna**: Bezpłatna, 30-minutowa sesja kalibracyjna ustalana w ciągu 24h od zgłoszenia.
