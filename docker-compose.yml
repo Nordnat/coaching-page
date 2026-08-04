@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  coachflow-web:
+    build: .
+    container_name: coachflow-website
+    restart: always
+    ports:
+      - "80:80"
