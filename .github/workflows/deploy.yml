@@ -33,17 +33,4 @@ jobs:
             # 3. Wymuszenie budowy BEZ użycia cache'u (tutaj pojawią się Twoje nowe pliki)
             /usr/bin/docker compose build --no-cache coachflow-web
             /usr/bin/docker compose up -d
-          
-          
-          # ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.HOSTING_IP }} "
-          #   set -x
-          #   cd /docker/coachflow
-          #   git config --global --add safe.directory /docker/coachflow
-          #   git pull origin main
-            
-          #   # 1. Zgaszenie aktualnych kontenerów i usunięcie sierot blokujących porty
-          #   /usr/bin/docker compose down --remove-orphans
-            
-          #   # 2. Zbudowanie i uruchomienie na czysto
-          #   /usr/bin/docker compose up -d --build
           "
