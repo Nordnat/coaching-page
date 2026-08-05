@@ -13,19 +13,27 @@ jobs:
       - name: Ping serwera z GitHuba
         run: nc -vz ${{ secrets.HOSTING_IP }} 22
 
-      - name: SSH and Deploy to Hostinger
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOSTING_IP }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
+      - name: Wdrożenie CoachFlow przez natywne SSH
+        run: |
+          # Konfiguracja bezpiecznego klucza na maszynie GitHuba
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # Logowanie na serwer Hostinger i wykonanie komend
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.HOSTING_IP }} << 'EOF'
+            # Włączenie dokładnego logowania kroków
+            set -x
+            
             # 1. Wejście do folderu z projektem na serwerze
             cd /docker/coachflow
             
-            # 2. Pobranie najnowszych zmian z GitHuba
+            # 2. Dodanie folderu do wyjątków bezpieczeństwa Gita (naprawa błędu dubious ownership)
+            git config --global --add safe.directory /docker/coachflow
+            
+            # 3. Pobranie najnowszych zmian z GitHuba
             git pull origin main
             
-            # 3. Zbudowanie od nowa i restart wyłącznie kontenera coachflow
+            # 4. Zbudowanie od nowa i restart wyłącznie kontenera coachflow
             docker-compose up -d --build coachflow
             
