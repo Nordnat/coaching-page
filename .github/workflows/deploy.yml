@@ -10,9 +10,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-- name: Ping serwera z GitHuba
+      - name: Ping serwera z GitHuba
         run: nc -vz ${{ secrets.HOSTING_IP }} 22
-
 
       - name: SSH and Deploy to Hostinger
         uses: appleboy/ssh-action@v1.0.3
