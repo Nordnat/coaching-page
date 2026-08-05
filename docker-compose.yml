@@ -1,9 +1,43 @@
-version: '3.8'
-
 services:
+  traefik:
+    image: traefik:v3.1
+    container_name: coachflow-traefik
+    restart: always
+    command:
+      - --api.dashboard=false
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --certificatesresolvers.letsencrypt.acme.email=kontakt@coachflow.com.pl
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - coachflow-letsencrypt:/letsencrypt
+    networks:
+      - proxy
+
   coachflow-web:
     build: .
     container_name: coachflow-website
     restart: always
-    ports:
-      - "80:80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.coachflow.rule=Host(`coachflow.com.pl`) || Host(`www.coachflow.com.pl`)
+      - traefik.http.routers.coachflow.entrypoints=websecure
+      - traefik.http.routers.coachflow.tls.certresolver=letsencrypt
+      - traefik.http.services.coachflow.loadbalancer.server.port=80
+    networks:
+      - proxy
+
+networks:
+  proxy:
+
+volumes:
+  coachflow-letsencrypt:
