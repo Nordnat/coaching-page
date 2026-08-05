@@ -1,40 +1,27 @@
-name: Deploy to Hostinger VPS Docker Container
+name: Deploy CoachFlow
 
+# Akcja uruchomi się automatycznie po wrzuceniu (push) kodu na główną gałąź (main)
 on:
   push:
     branches:
-      - main
+      - main 
 
 jobs:
   deploy:
-    name: Deploy to Hostinger VPS
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Deploy via SSH to VPS
+      - name: SSH and Deploy to Hostinger
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT || 22 }}
+          host: ${{ secrets.HOSTING_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # 1. Przejdź do folderu z aplikacją na VPS (stworzy go jeśli nie istnieje)
-            mkdir -p ~/coachflow-app
-            cd ~/coachflow-app
-
-            # 2. Pobierz najnowszy kod z GitHub
-            if [ -d ".git" ]; then
-              git fetch origin main
-              git reset --hard origin/main
-            else
-              git clone https://github.com/Nordnat/coaching-page.git .
-            fi
-
-            # 3. Zbuduj i uruchom kontener Docker
-            docker compose down --remove-orphans || true
-            docker compose up -d --build
-            docker system prune -f
+            # 1. Wejście do folderu z projektem na serwerze
+            cd /docker/coachflow
+            
+            # 2. Pobranie najnowszych zmian z GitHuba
+            git pull origin main
+            
+            # 3. Zbudowanie od nowa i restart wyłącznie kontenera coachflow
+            docker-compose up -d --build coachflow
