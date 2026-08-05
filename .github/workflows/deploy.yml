@@ -25,3 +25,4 @@ jobs:
             
             # 3. Zbudowanie od nowa i restart wyłącznie kontenera coachflow
             docker-compose up -d --build coachflow
+            
