@@ -1,5 +1,6 @@
 name: Deploy CoachFlow
 
+# Akcja uruchomi się automatycznie po wrzuceniu (push) kodu na główną gałąź (main)
 on:
   push:
     branches:
@@ -9,22 +10,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Wdrożenie CoachFlow przez natywne SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.HOSTING_IP }} << 'EOF'
-            # set -x sprawi, że w logach GitHuba zobaczysz dokładnie, na której komendzie wystąpił problem
-            set -x
-            
-            # 1. Wejście do folderu (używamy pełnej ścieżki, na wypadek gdyby cd zawiodło)
+      - name: Ping serwera z GitHuba
+        run: nc -vz ${{ secrets.HOSTING_IP }} 22
+
+      - name: SSH and Deploy to Hostinger
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTING_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # 1. Wejście do folderu z projektem na serwerze
             cd /docker/coachflow
             
-            # 2. Pobranie zmian
+            # 2. Pobranie najnowszych zmian z GitHuba
             git pull origin main
             
-            # 3. Zbudowanie i restart kontenera (próbuje nowej wersji, a w razie błędu starszej)
-            docker compose up -d --build coachflow || docker-compose up -d --build coachflow
-          EOF
+            # 3. Zbudowanie od nowa i restart wyłącznie kontenera coachflow
+            docker-compose up -d --build coachflow
+            
