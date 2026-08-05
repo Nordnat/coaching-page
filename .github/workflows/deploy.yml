@@ -1,6 +1,5 @@
 name: Deploy CoachFlow
 
-# Akcja uruchomi się automatycznie po wrzuceniu (push) kodu na główną gałąź (main)
 on:
   push:
     branches:
@@ -15,25 +14,17 @@ jobs:
 
       - name: Wdrożenie CoachFlow przez natywne SSH
         run: |
-          # Konfiguracja bezpiecznego klucza na maszynie GitHuba
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
-          # Logowanie na serwer Hostinger i wykonanie komend
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.HOSTING_IP }} << 'EOF'
-            # Włączenie dokładnego logowania kroków
+          # Używamy cudzysłowu " zamiast EOF, aby uniknąć błędów ze spacjami
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.HOSTING_IP }} "
             set -x
-            
-            # 1. Wejście do folderu z projektem na serwerze
             cd /docker/coachflow
-            
-            # 2. Dodanie folderu do wyjątków bezpieczeństwa Gita (naprawa błędu dubious ownership)
             git config --global --add safe.directory /docker/coachflow
-            
-            # 3. Pobranie najnowszych zmian z GitHuba
             git pull origin main
             
-            # 4. Zbudowanie od nowa i restart wyłącznie kontenera coachflow
-            docker-compose up -d --build coachflow
-            
+            # Prawidłowe ścieżki do Dockera (omijają błąd 127)
+            /usr/bin/docker compose up -d --build || /usr/local/bin/docker-compose up -d --build
+          "
