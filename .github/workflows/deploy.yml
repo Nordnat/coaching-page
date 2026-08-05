@@ -11,19 +11,20 @@ jobs:
     steps:
       - name: Wdrożenie CoachFlow przez natywne SSH
         run: |
-          # 1. Stworzenie ukrytego folderu na klucz SSH
           mkdir -p ~/.ssh
-          
-          # 2. Zapisanie Twojego prywatnego klucza z sekretów do pliku
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          
-          # 3. Nadanie odpowiednich uprawnień bezpieczeństwa kluczowi
           chmod 600 ~/.ssh/id_rsa
           
-          # 4. Logowanie na serwer i wykonanie komend
-          # Flaga StrictHostKeyChecking=no wyłącza ręczne potwierdzanie (wpisywanie "yes") przy pierwszym logowaniu
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.HOSTING_IP }} << 'EOF'
+            # set -x sprawi, że w logach GitHuba zobaczysz dokładnie, na której komendzie wystąpił problem
+            set -x
+            
+            # 1. Wejście do folderu (używamy pełnej ścieżki, na wypadek gdyby cd zawiodło)
             cd /docker/coachflow
+            
+            # 2. Pobranie zmian
             git pull origin main
-            docker-compose up -d --build coachflow
+            
+            # 3. Zbudowanie i restart kontenera (próbuje nowej wersji, a w razie błędu starszej)
+            docker compose up -d --build coachflow || docker-compose up -d --build coachflow
           EOF
