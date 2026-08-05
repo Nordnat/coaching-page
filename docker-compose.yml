@@ -29,8 +29,10 @@ services:
     restart: always
     labels:
       - traefik.enable=true
+      - traefik.docker.network=proxy
       - traefik.http.routers.coachflow.rule=Host(`coachflow.com.pl`) || Host(`www.coachflow.com.pl`)
       - traefik.http.routers.coachflow.entrypoints=websecure
+      - traefik.http.routers.coachflow.tls=true
       - traefik.http.routers.coachflow.tls.certresolver=letsencrypt
       - traefik.http.services.coachflow.loadbalancer.server.port=80
     networks:
