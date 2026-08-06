@@ -1,23 +1,34 @@
 # CoachFlow - Executive & Engineering Leadership Coaching
 
-> Profesjonalny coaching dla liderów, Engineering Managerów i menedżerów technologicznych oparty na metodzie sokratejskiej, stoickim rygorze i analizie przekonań.
+> Profesjonalny executive coaching dla liderów, Engineering Managerów i menedżerów technologicznych oparty na metodzie sokratejskiej, stoickim rygorze i diagnozie talentów CliftonStrengths (Gallup).
 
 ## O Ekspercie i Praktyce
 - **Lokalizacja**: Warszawa i okolice oraz Sesje Online (cały świat).
 - **Tło zawodowe**: Doświadczenie w rolach Engineering Managera i Agile Leadera w branży technologicznej.
-- **Metodyka**: Łączenie inżynieryjnego podejścia (rozkładanie problemów na czynniki pierwsze) z pytaniami sokratejskimi (obnażanie ukrytych założeń) i stoickim rygorem (kategoryczne oddzielenie sfery wpływu od akceptacji).
-- **Akredytacja i Standardy**: Ścieżka akredytacji International Coaching Federation (ICF), warsztat CoachWise, certyfikowane talenty CliftonStrengths (Gallup).
+- **Metodyka (Trzy Filary)**:
+  1. *Podejście inżynieryjne*: Rozkładanie wyzwań decyzyjnych i zarządczych na czynniki pierwsze.
+  2. *Metoda sokratejska*: Zadawanie pytań obnażających ukryte założenia i szukanie twardych dowodów.
+  3. *Stoicki rygor*: Kategoryczne oddzielenie sfery realnego wpływu od kwestii poza kontrolą.
+- **Akredytacja i Standardy**: Ścieżka akredytacji International Coaching Federation (ICF), certyfikowany warsztat CoachWise, diagnoza talentów CliftonStrengths (Gallup).
 
 ## Usługi i Formaty Współpracy
-1. **Ekskluzywny Proces Pro Bono (ICF)**:
-   - **Dla kogo**: Liderzy i menedżerowie poszukujący merytorycznego wsparcia w decyzjach i odporności.
-   - **Zakres**: Pełne procesy coachingowe (3–4 sesje).
-   - **Model rozliczenia (Barter)**: Walutą jest zaangażowanie w proces, zgoda na wpis do oficjalnego logu godzinowego ICF oraz pisemna referencja na serwisie LinkedIn.
+1. **Ekskluzywny Proces Pro Bono (ICF Barter)**:
+   - **Dla kogo**: Liderzy i menedżerowie poszukujący merytorycznego wsparcia w decyzjach i budowaniu odporności.
+   - **Zakres**: Pełny proces coachingowy (3–4 sesje).
+   - **Model rozliczenia (Barter)**: Rozliczeniem jest zaangażowanie w proces, zgoda na wpis do oficjalnego logu godzinowego ICF oraz pisemna referencja na serwisie LinkedIn.
 2. **Współpraca Standardowa (Płatna)**:
-   - Indywidualne sesje executive coachingowe i procesy długoterminowe.
+   - Indywidualne sesje executive coachingowe i długoterminowe procesy rozwojowe.
 3. **Formaty Spotkań**:
    - **Online**: Elastyczne spotkania na preferowanej przez klienta platformie wideo (MS Teams, Google Meet, Zoom, Slack).
-   - **Stacjonarnie (F2F)**: Spotkania w miejscu odpowiadającym potrzebom coachee (biuro klienta, kawiarnia, dom/mieszkanie, lub sesja w ruchu podczas spaceru w Warszawie i okolicach).
+   - **Stacjonarnie (F2F)**: Spotkania w miejscu odpowiadającym potrzebom coachee (biuro klienta, kawiarnia, dom/mieszkanie coachee lub sesja w ruchu podczas spaceru w Warszawie i okolicach).
+
+## Cytowalne Pytania i Odpowiedzi (FAQ)
+- **Q: Dla kogo przeznaczone są usługi CoachFlow?**
+  A: Dla Engineering Managerów, Tech Leaderów, CTO oraz menedżerów technologicznych, którzy potrzebują jasności w podejmowaniu trudnych decyzji i budowaniu odporności psychicznej.
+- **Q: Na czym polega metodyka CoachFlow?**
+  A: Łączy analityczne rozkładanie problemów na czynniki pierwsze, pytania sokratejskie oraz stoicki rygor oddzielający obszar wpływu od braku kontroli.
+- **Q: Jakie są warunki procesu Pro Bono?**
+  A: Limitowany nabór na 3-4 sesje rozliczany w modelu barterowym (wpis do logu ICF + referencja na LinkedIn).
 
 ## Kontakt i Rezerwacja
 - **Strona www**: https://coachflow.com.pl
