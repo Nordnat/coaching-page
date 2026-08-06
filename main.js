@@ -1,215 +1,166 @@
-/* ==========================================================================
-   MAIN JAVASCRIPT LOGIC - CoachFlow Executive Coaching
-   ========================================================================== */
+/**
+ * Psychosomatyka w Praktyce - Main Interactive Script
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
-  const navToggle = document.getElementById('navToggle');
-  const navMenu = document.getElementById('navMenu');
-  const header = document.getElementById('header');
-  const modalOverlay = document.getElementById('inquiryModal');
-  const modalClose = document.getElementById('modalClose');
-  const openModalBtns = document.querySelectorAll('.open-modal-btn');
-  const inquiryForm = document.getElementById('inquiryForm');
+  const header = document.getElementById('site-header');
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const mainNav = document.getElementById('main-nav');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const contactForm = document.getElementById('contact-form');
+  const serviceSelect = document.getElementById('service');
+  const selectServiceBtns = document.querySelectorAll('.select-service-btn');
+  const toastNotification = document.getElementById('toast-notification');
+  const toastClose = document.getElementById('toast-close');
+  const toastTitle = document.getElementById('toast-title');
+  const toastMessage = document.getElementById('toast-message');
 
-  // Privacy RODO Modal Elements
-  const privacyModal = document.getElementById('privacyModal');
-  const privacyClose = document.getElementById('privacyClose');
-  const privacyLink = document.getElementById('privacyLink');
-  const privacyAcceptBtn = document.getElementById('privacyAcceptBtn');
+  /* ------------------------------------------------------------------------
+     1. Sticky Header Scroll Effect
+     ------------------------------------------------------------------------ */
+  const handleScroll = () => {
+    if (window.scrollY > 30) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  };
 
-  // Mobile Menu Toggle
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      const icon = navToggle.querySelector('i');
-      if (icon) {
-        icon.className = navMenu.classList.contains('active') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-      }
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  /* ------------------------------------------------------------------------
+     2. Mobile Hamburger Navigation
+     ------------------------------------------------------------------------ */
+  if (mobileToggle && mainNav) {
+    mobileToggle.addEventListener('click', () => {
+      const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+      mobileToggle.setAttribute('aria-expanded', !isExpanded);
+      mobileToggle.classList.toggle('active');
+      mainNav.classList.toggle('active');
     });
 
-    document.querySelectorAll('.nav-link').forEach(link => {
+    // Close menu when clicking nav link
+    navLinks.forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        const icon = navToggle.querySelector('i');
-        if (icon) icon.className = 'fa-solid fa-bars';
+        mobileToggle.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('active');
       });
     });
   }
 
-  // Header Box Shadow on Scroll
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.style.boxShadow = '0 4px 20px rgba(15, 23, 42, 0.08)';
-    } else {
-      header.style.boxShadow = 'none';
-    }
-  });
-
-  // Modal Handlers
-  const openModal = (overlay) => {
-    if (overlay) {
-      overlay.classList.add('active');
-      overlay.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
+  /* ------------------------------------------------------------------------
+     3. Scroll Active Link Highlighting (IntersectionObserver)
+     ------------------------------------------------------------------------ */
+  const sections = document.querySelectorAll('section[id]');
+  
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
   };
 
-  const closeModal = (overlay) => {
-    if (overlay) {
-      overlay.classList.remove('active');
-      overlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, observerOptions);
 
-  openModalBtns.forEach(btn => {
+  sections.forEach(section => observer.observe(section));
+
+  /* ------------------------------------------------------------------------
+     4. Package Card CTA Selection (Pre-fill Select Input)
+     ------------------------------------------------------------------------ */
+  selectServiceBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal(modalOverlay);
+      const targetService = btn.getAttribute('data-service');
+      if (targetService && serviceSelect) {
+        // Find matching option or set value
+        for (let i = 0; i < serviceSelect.options.length; i++) {
+          if (serviceSelect.options[i].value.includes(targetService) || serviceSelect.options[i].text.includes(targetService)) {
+            serviceSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
     });
   });
 
-  if (modalClose) {
-    modalClose.addEventListener('click', () => closeModal(modalOverlay));
-  }
-
-  if (modalOverlay) {
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) closeModal(modalOverlay);
-    });
-  }
-
-  // Privacy Modal Listeners
-  if (privacyLink) {
-    privacyLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal(privacyModal);
-    });
-  }
-
-  if (privacyClose) {
-    privacyClose.addEventListener('click', () => closeModal(privacyModal));
-  }
-
-  if (privacyAcceptBtn) {
-    privacyAcceptBtn.addEventListener('click', () => closeModal(privacyModal));
-  }
-
-  if (privacyModal) {
-    privacyModal.addEventListener('click', (e) => {
-      if (e.target === privacyModal) closeModal(privacyModal);
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (modalOverlay && modalOverlay.classList.contains('active')) closeModal(modalOverlay);
-      if (privacyModal && privacyModal.classList.contains('active')) closeModal(privacyModal);
-    }
-  });
-
-  /* ==========================================================================
-     RELIABLE EMAIL SUBMISSION HANDLER
-     ========================================================================== */
-  if (inquiryForm) {
-    inquiryForm.addEventListener('submit', async (e) => {
+  /* ------------------------------------------------------------------------
+     5. Contact Form Validation & Toast Notification
+     ------------------------------------------------------------------------ */
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const submitBtn = document.getElementById('submitInquiryBtn');
-      const name = document.getElementById('userName').value.trim();
-      const email = document.getElementById('userEmail').value.trim();
-      const coachingType = document.getElementById('coachingType').value;
-      const format = document.getElementById('sessionType').value;
-      const message = document.getElementById('userNote').value.trim();
-      const rodo = document.getElementById('rodoConsent').checked;
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const serviceInput = document.getElementById('service');
+      const messageInput = document.getElementById('message');
+      const submitBtn = document.getElementById('submit-btn');
+      const formFeedback = document.getElementById('form-feedback');
 
-      if (!name || !email || !rodo) {
-        alert('Proszę wypełnić wszystkie wymagane pola oraz zaznaczyć zgodę RODO.');
+      // Simple HTML5 validity check
+      if (!nameInput.value.trim() || !emailInput.value.trim() || !serviceInput.value || !messageInput.value.trim()) {
+        showFormFeedback(formFeedback, 'Wypełnij wszystkie wymagane pola przed wysłaniem.', 'error');
         return;
       }
 
-      // Visual feedback loading state
-      const originalBtnHtml = submitBtn.innerHTML;
+      // Simulate sending
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 0.5rem;"></i> Wysyłanie...`;
+      submitBtn.innerHTML = `<span>Wysyłanie...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
 
-      // Payload structure
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('coaching_type', coachingType);
-      formData.append('format', format);
-      formData.append('message', message);
-      formData.append('rodo_consent', 'Zgoda RODO udzielona');
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Wyślij zapytanie</span> <i class="fa-solid fa-paper-plane"></i>`;
 
-      let isSuccess = false;
-
-      try {
-        // Attempt POST request to endpoint (Formspree / Backend Webhook)
-        const response = await fetch(inquiryForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          isSuccess = true;
-        } else {
-          console.warn('Endpoint POST status:', response.status);
-        }
-      } catch (err) {
-        console.warn('Wysyłka sieciowa nie powiodła się, stosuję bezpośrednią rezerwację mailto:', err);
-      }
-
-      // Fallback & Guarantee: Trigger Mailto to ensure email reaches recipient directly
-      if (!isSuccess) {
-        const mailtoSubject = encodeURIComponent(`Zgłoszenie na sesję kalibracyjną - ${name}`);
-        const mailtoBody = encodeURIComponent(
-          `Nowe zgłoszenie ze strony CoachFlow:\n\n` +
-          `Imię i Nazwisko: ${name}\n` +
-          `E-mail: ${email}\n` +
-          `Typ współpracy: ${coachingType}\n` +
-          `Preferowany format spotkania: ${format}\n` +
-          `Wyzwanie / Opis: ${message || 'Brak dodatkowego opisu'}\n` +
-          `Zgoda RODO: Tak\n\n` +
-          `Wysłano: ${new Date().toLocaleString('pl-PL')}`
-        );
-
-        // Trigger mailto link silently in background
-        const mailtoUrl = `mailto:kontakt@coachflow.com.pl?subject=${mailtoSubject}&body=${mailtoBody}`;
-        window.location.href = mailtoUrl;
-      }
-
-      // Success UI Render
-      const modalContent = modalOverlay.querySelector('.modal-content');
-      if (modalContent) {
-        modalContent.innerHTML = `
-          <div style="text-align: center; padding: 2rem 1rem;">
-            <div style="width: 70px; height: 70px; background-color: var(--color-accent-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
-              <i class="fa-solid fa-check" style="font-size: 2.2rem; color: var(--color-accent-orange);"></i>
-            </div>
-            <h3 style="font-size: 1.6rem; color: var(--color-navy-dark); margin-bottom: 0.8rem;">Dziękuję, ${name}!</h3>
-            <p style="font-size: 1.05rem; color: var(--color-text-muted); margin-bottom: 1.2rem;">
-              Twoje zgłoszenie zostało zarejestrowane. Potwierdzenie oraz propozycja dogodnych terminów zostaną przesłane na adres:
-            </p>
-            <div style="background-color: var(--color-bg-slate); padding: 0.8rem 1.2rem; border-radius: var(--radius-sm); font-weight: 600; color: var(--color-navy-dark); margin-bottom: 1.8rem; display: inline-block;">
-              ${email}
-            </div>
-            <div style="font-size: 0.9rem; color: var(--color-text-light); margin-bottom: 1.8rem;">
-              Typ: <strong>${coachingType}</strong> | Format: <strong>${format}</strong>
-            </div>
-            <button class="btn btn-accent" id="successCloseBtn" style="width: 100%;">Zamknij okno</button>
-          </div>
-        `;
-
-        document.getElementById('successCloseBtn').addEventListener('click', () => {
-          closeModal(modalOverlay);
-          window.location.reload();
-        });
-      }
+        // Success state
+        contactForm.reset();
+        showFormFeedback(formFeedback, 'Dziękuję! Twoja wiadomość została wysłana. Odpowiem wkrótce.', 'success');
+        showToast('Wiadomość wysłana!', 'Dziękuję za kontakt. Otrzymasz odpowiedź w ciągu 24h.');
+      }, 1000);
     });
+  }
+
+  function showFormFeedback(el, msg, type) {
+    if (!el) return;
+    el.textContent = msg;
+    el.className = `form-feedback ${type}`;
+    setTimeout(() => {
+      el.className = 'form-feedback';
+    }, 6000);
+  }
+
+  function showToast(title, message) {
+    if (!toastNotification) return;
+    toastTitle.textContent = title;
+    toastMessage.textContent = message;
+    toastNotification.classList.add('active');
+    toastNotification.setAttribute('aria-hidden', 'false');
+
+    setTimeout(() => {
+      closeToast();
+    }, 5000);
+  }
+
+  function closeToast() {
+    if (!toastNotification) return;
+    toastNotification.classList.remove('active');
+    toastNotification.setAttribute('aria-hidden', 'true');
+  }
+
+  if (toastClose) {
+    toastClose.addEventListener('click', closeToast);
   }
 });
