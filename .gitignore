@@ -1,14 +1,10 @@
-# OS files
-.DS_Store
-Thumbs.db
-Desktop.ini
+# Gemini & Agent Scratch
+.gemini
 
-# Logs & temp
-*.log
-.gemini/
-.idea/
-.vscode/
-
-# Dependencies
-node_modules/
-dist/
+# Local SSH Keys & Credentials
+github-coachflow
+github-coachflow.pub
+*.pem
+*.key
+.env
+.env.local
