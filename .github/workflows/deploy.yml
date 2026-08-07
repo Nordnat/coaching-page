@@ -1,36 +1,75 @@
-name: Deploy CoachFlow
+name: Deploy CoachFlow to Hostinger VPS
 
 on:
   push:
     branches:
-      - main 
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: nordnat/coaching-page
 
 jobs:
-  deploy:
+  build-and-push:
+    name: Build & Push Docker Image to GHCR
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-      - name: Ping serwera z GitHuba
-        run: nc -vz ${{ secrets.HOSTING_IP }} 22
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Wdrożenie CoachFlow przez natywne SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.HOSTING_IP }} "
-            set -x
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    name: Deploy to Hostinger VPS
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTING_IP || secrets.VPS_HOST }}
+          username: ${{ secrets.SSH_USERNAME || secrets.VPS_USERNAME || 'root' }}
+          key: ${{ secrets.SSH_PRIVATE_KEY || secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            set -e
+            echo "Rozpoczynam pobieranie i uruchamianie kontenera CoachFlow na VPS..."
+            
+            mkdir -p /docker/coachflow
             cd /docker/coachflow
-            git config --global --add safe.directory /docker/coachflow
-            
-            # 1. Brutalne zrównanie plików serwera z tym, co jest na GitHubie
-            git fetch --all
-            git reset --hard origin/main
-            
-            # 2. Zgaszenie aktualnych kontenerów
-            /usr/bin/docker compose down --remove-orphans
-            
-            # 3. Wymuszenie budowy BEZ użycia cache'u (tutaj pojawią się Twoje nowe pliki)
-            /usr/bin/docker compose build --no-cache coachflow-web
-            /usr/bin/docker compose up -d
-          "
+
+            # Zapewnij obecność wspólnej sieci proxy dla Traefika
+            docker network create proxy || true
+
+            # Wymuś pobranie najnowszego obrazu z GHCR i zaktualizuj kontener
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f || true
+
+            echo "Strona CoachFlow została pomyślnie zaktualizowana na VPS!"
