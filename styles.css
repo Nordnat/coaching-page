@@ -357,7 +357,7 @@ p:last-child {
 }
 
 /* ==========================================================================
-   Etap 3: Sekcja "O mnie"
+   Etap 3: Sekcja "O mnnie"
    ========================================================================== */
 .about-section {
   padding: 6rem 0;
@@ -730,7 +730,7 @@ p:last-child {
 }
 
 /* ==========================================================================
-   Modal / Direct Contact CTA Section
+   Modal / Direct Contact CTA Section (RESPONSIVE FIX FOR MOBILE & SMALL SCREENS)
    ========================================================================== */
 .contact-cta-section {
   padding: 5rem 0;
@@ -760,18 +760,22 @@ p:last-child {
   margin: 0 auto 2rem auto;
 }
 
+/* RESPONSIVE MODAL CONTAINER & SCROLLING */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(4px);
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-smooth);
@@ -785,9 +789,12 @@ p:last-child {
 .modal-content {
   background-color: var(--color-bg-pure);
   border-radius: var(--radius-md);
-  width: 90%;
+  width: 100%;
   max-width: 550px;
-  padding: 2.5rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 2.5rem 2rem;
   position: relative;
   box-shadow: var(--shadow-lg);
   transform: translateY(20px);
@@ -804,9 +811,16 @@ p:last-child {
   right: 1.2rem;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: var(--color-text-muted);
   cursor: pointer;
+  z-index: 10;
+  padding: 0.4rem;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--color-navy-dark);
 }
 
 .form-group {
@@ -827,7 +841,7 @@ p:last-child {
   width: 100%;
   padding: 0.85rem 1rem;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1rem; /* 16px to prevent auto-zoom on iOS Safari */
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
   background-color: var(--color-bg-slate);
@@ -838,6 +852,33 @@ p:last-child {
   outline: none;
   border-color: var(--color-accent-orange);
   background-color: #FFFFFF;
+}
+
+/* Mobile Adjustments for Form Modal */
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 0.75rem;
+  }
+  
+  .modal-content {
+    padding: 1.75rem 1.25rem 1.5rem 1.25rem;
+    max-height: 94vh;
+    border-radius: var(--radius-sm);
+  }
+
+  .modal-close {
+    top: 0.8rem;
+    right: 0.8rem;
+    font-size: 1.75rem;
+  }
+
+  .contact-box {
+    padding: 2.2rem 1.5rem;
+  }
+
+  .contact-box h2 {
+    font-size: 1.8rem;
+  }
 }
 
 /* ==========================================================================
